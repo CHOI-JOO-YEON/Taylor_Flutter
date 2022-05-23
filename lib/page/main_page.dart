@@ -18,6 +18,7 @@ class _MainPageState extends State<MainPage> {
   CameraDescription camera_dir;
   CameraController _cameraController;
   bool _cameraInitialized = false;
+  double heightR, widthR;
 
   @override
   void initState() {
@@ -70,7 +71,7 @@ class _MainPageState extends State<MainPage> {
 
     _cameraController = CameraController(
         camera_dir, ResolutionPreset.high // 가장 높은 해상도의 기능을 쓸 수 있도록 합니다.
-        );
+    );
     _cameraController.initialize().then((value) {
       // 카메라 준비가 끝나면 카메라 미리보기를 보여주기 위해 앱 화면을 다시 그립니다.
       setState(() => _cameraInitialized = true);
@@ -79,6 +80,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    heightR = (MediaQuery.of(context).size.height/820.6);
+    widthR = (MediaQuery.of(context).size.width/411.4);
     return Scaffold(
       body: Column(
         children: [
@@ -90,26 +93,59 @@ class _MainPageState extends State<MainPage> {
             children: [
 
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0*widthR),
                 child: SizedBox(
-                    height: 120, child: CameraPreview(_cameraController)),
+                    height: MediaQuery.of(context).size.height/6*heightR, child: CameraPreview(_cameraController)),
               ),
             ],
           ),
           SizedBox(
-            height: 500,
+            height: MediaQuery.of(context).size.height/4*heightR,
           ),
-          FlatButton(color: Colors.deepOrange, onPressed: () async{
-            final image = await _cameraController.takePicture();
-            checkAttribute(File(image.path));
 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              GestureDetector(
+                  onTap : goMenuPage,
+                  child: isTakeOut('포장')
+              ),
+              Padding(padding: EdgeInsets.all(20.0*widthR)),
+              GestureDetector(
+                  onTap : goMenuPage,
+                  child: isTakeOut('매장')
+              ),
 
-
-          }, child: Text('주문하기',style: TextStyle(fontSize: 30),)),
+            ],
+          ),
         ],
       ),
     );
   }
+
+  Container isTakeOut(String a) {
+    String word = '매장';
+    Widget i = Icon(Icons.restaurant, size: 60);
+    if(a.contains('포장')){
+      word = a;
+      i = Icon(Icons.shopping_bag_outlined, size: 60,);
+    }
+    return Container(
+                  height: 120*widthR,
+                  width: 120*widthR,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15), //모서리를 둥글게
+                      border: Border.all(color: Colors.black38, width: 3*widthR)), //테두리
+                  child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[i,
+                      Text(word, style: TextStyle(fontWeight: FontWeight.bold),)],),
+                );
+  }
+
+  void goMenuPage() async{
+                  final image = await _cameraController.takePicture();
+                  checkAttribute(File(image.path));
+                }
   Future<void> checkAttribute(File f) async {
     var map = await naverApi(f);
     int age;
