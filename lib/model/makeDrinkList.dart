@@ -21,8 +21,8 @@ class MakeList{
       Menu a = m.elementAt(i);
       // Menu b = a;
 
-      if(a.category.contains('coffe')){
-        coffe.list.add(a);
+      if(a.category.contains('ncoffe')){
+        ncoffe.list.add(a);
       }
       else if(a.category.contains('ade')){
         ade.list.add(a);
@@ -30,8 +30,8 @@ class MakeList{
       else if(a.category.contains('tea')){
         tea.list.add(a);
       }
-      else if(a.category.contains('ncoffe')){
-        ncoffe.list.add(a);
+      else if(a.category.contains('coffe')){
+        coffe.list.add(a);
       }
       else if(a.category.contains('smoothie')){
         smoothie.list.add(a);

@@ -1,9 +1,4 @@
-import 'package:flutter_kiosk_new/model/makeDrinkList.dart';
-
 import 'Menu.dart';
-import 'MenuCategory.dart';
-
-
 
 class Coffee {
   List<Menu> list;
@@ -15,7 +10,7 @@ class Coffee {
   }
 
   Coffee._internal() {
-    list=null;
+    list=List();
   }
 
 }
@@ -30,7 +25,7 @@ class Ade {
   }
 
   Ade._internal() {
-    list=null;
+    list=List();
   }
 
 }
@@ -45,7 +40,7 @@ class Tea {
   }
 
   Tea._internal() {
-    list=null;
+    list=List();
   }
 
 }
@@ -60,7 +55,7 @@ class NCoffee {
   }
 
   NCoffee._internal() {
-    list=null;
+    list=List();
   }
 
 }
@@ -75,7 +70,7 @@ class Smoothie {
   }
 
   Smoothie._internal() {
-    list=null;
+    list=List();
   }
 
 }

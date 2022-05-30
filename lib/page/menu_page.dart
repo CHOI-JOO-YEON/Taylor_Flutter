@@ -194,7 +194,8 @@ class _MenuPageState extends State<MenuPage> {
             child: Column(
               children: [
                 Text(a.name),
-                Text(a.temp),
+                // Text(a.temp),
+                Text(a.sequence.toString()),
                 Text(a.price.toString()),
                 Text(a.category)
               ],
