@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_kiosk_new/model/Menu.dart';
 import 'package:flutter_kiosk_new/model/MenuList.dart';
 import 'package:flutter_kiosk_new/model/attribute.dart';
+import 'package:flutter_kiosk_new/model/makeDrinkList.dart';
 
+import '../model/MenuCategory.dart';
+import '../model/MenuCategoryList.dart';
 import '../model/itemCard.dart';
 import 'detail_page.dart';
 
@@ -13,6 +16,7 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   List<Menu> m = MenuList().list;
+  List<MenuCategory> mc;
   List<String> categories = ["커피", "에이드""\n&주스", "차", "음료", "스무디"];
 
   int age = Attribute().age;
@@ -22,10 +26,14 @@ class _MenuPageState extends State<MenuPage> {
   int numOfItems = 16, numOfRows = 4, numOfMenu, menuIndex = 0;
   String selectedCategory;
 
-
+  void initState() {
+    super.initState();
+    MakeList().addMenu();
+  }
 
   @override
   Widget build(BuildContext context) {
+    MakeList().addMenu();
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -139,9 +147,26 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   GridView buildGridView() {
+    if(selectedIndex == 0){
+      mc = Coffee().list;
+    }
+    else if(selectedIndex == 1){
+      mc = Ade().list;
+    }
+    else if(selectedIndex == 2){
+      mc = Tea().list;
+    }
+    else if(selectedIndex == 3){
+      mc = NCoffee().list;
+    }
+    else if(selectedIndex == 4){
+      mc = Smoothie().list;
+    }
+
     return GridView.builder(
         padding: EdgeInsets.all(0),
-        itemCount: returnItemCount(),
+        itemCount: mc.length,
+        // itemCount: returnItemCount(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: returnItemRow(),
           mainAxisSpacing: 10,
@@ -153,49 +178,24 @@ class _MenuPageState extends State<MenuPage> {
 
         // **여기부터 다시 작성** itemCard 구현해야 함
         itemBuilder: (context, index) {
-          Menu a = m.elementAt(index+pageIndex*numOfItems);
-          switch (selectedIndex) {
-            case 0:
-              selectedCategory = 'coffe';
-              numOfMenu = 31;
-              break;
-            case 1:
-              selectedCategory = 'ade';
-              numOfMenu = 15;
-              break;
-            case 2:
-              selectedCategory = 'tea';
-              numOfMenu = 19;
-              break;
-            case 3:
-              selectedCategory = 'ncoffe';
-              numOfMenu = 23;
-              break;
-            case 4 :
-              selectedCategory = 'smoothie';
-              numOfMenu = 14;
-              break;
-          }
+          MenuCategory a = mc.elementAt(index);
+          return Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 3
+              )
+            ),
+            child: Column(
+              children: [
+                Text(a.name),
+                Text(a.temp),
+                Text(a.price.toString()),
+                Text(a.category)
+              ],
+            ),
+          );
 
-          if (a.category.contains(selectedCategory)) {
-              if (menuIndex >= numOfMenu) {
-                return Container();
-              }
-              else {
-                menuIndex++;
-                return ItemCard(
-                    mn: a,
-                    press: () => {}
-                  // Navigator.push(context, MaterialPageRoute(
-                  //     builder: (context) =>
-                  //         DetailScreen(m: a))),
-                );
-              }
-
-
-            // else
-            //   return Container();
-          }
         }
     );
   }
