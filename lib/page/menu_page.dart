@@ -16,7 +16,12 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   List<Menu> m = MenuList().list;
-  List<MenuCategory> mc;
+  Coffee coffe = new Coffee();
+  Ade ade = new Ade();
+  Tea tea = new Tea();
+  NCoffee ncoffe = new NCoffee();
+  Smoothie smoothie = new Smoothie();
+  List<Menu> mc;
   List<String> categories = ["커피", "에이드""\n&주스", "차", "음료", "스무디"];
 
   int age = Attribute().age;
@@ -33,7 +38,7 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    MakeList().addMenu();
+    // MakeList().addMenu();
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -148,19 +153,19 @@ class _MenuPageState extends State<MenuPage> {
 
   GridView buildGridView() {
     if(selectedIndex == 0){
-      mc = Coffee().list;
+      mc = coffe.list;
     }
     else if(selectedIndex == 1){
-      mc = Ade().list;
+      mc = ade.list;
     }
     else if(selectedIndex == 2){
-      mc = Tea().list;
+      mc = tea.list;
     }
     else if(selectedIndex == 3){
-      mc = NCoffee().list;
+      mc = ncoffe.list;
     }
     else if(selectedIndex == 4){
-      mc = Smoothie().list;
+      mc = smoothie.list;
     }
 
     return GridView.builder(
@@ -178,7 +183,7 @@ class _MenuPageState extends State<MenuPage> {
 
         // **여기부터 다시 작성** itemCard 구현해야 함
         itemBuilder: (context, index) {
-          MenuCategory a = mc.elementAt(index);
+          Menu a = mc.elementAt(index);
           return Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(

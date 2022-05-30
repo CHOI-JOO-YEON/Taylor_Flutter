@@ -8,33 +8,33 @@ import 'MenuList.dart';
 class MakeList{
   List<Menu> m = MenuList().list;
 
-  List<MenuCategory> coffe = Coffee().list;
-  List<MenuCategory> ade = Ade().list;
-  List<MenuCategory> tea = Tea().list;
-  List<MenuCategory> ncoffe = NCoffee().list;
-  List<MenuCategory> smoothie = Smoothie().list;
+  Coffee coffe = new Coffee();
+  Ade ade = new Ade();
+  Tea tea = new Tea();
+  NCoffee ncoffe = new NCoffee();
+  Smoothie smoothie = new Smoothie();
 
   addMenu() {
     m.sort((a, b) => a.sequence.compareTo(b.sequence));
 
     for(int i = 0; i < m.length; i++){
       Menu a = m.elementAt(i);
-      MenuCategory b = MenuCategory(a);
+      // Menu b = a;
 
       if(a.category.contains('coffe')){
-        coffe.add(b);
+        coffe.list.add(a);
       }
       else if(a.category.contains('ade')){
-        ade.add(b);
+        ade.list.add(a);
       }
       else if(a.category.contains('tea')){
-        tea.add(b);
+        tea.list.add(a);
       }
       else if(a.category.contains('ncoffe')){
-        ncoffe.add(b);
+        ncoffe.list.add(a);
       }
       else if(a.category.contains('smoothie')){
-        smoothie.add(b);
+        smoothie.list.add(a);
       }
 
     }

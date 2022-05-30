@@ -6,7 +6,7 @@ import 'MenuCategory.dart';
 
 
 class Coffee {
-  List<MenuCategory> list;
+  List<Menu> list;
 
   static final Coffee _instance = Coffee._internal();
 
@@ -21,7 +21,7 @@ class Coffee {
 }
 
 class Ade {
-  List<MenuCategory> list;
+  List<Menu> list;
 
   static final Ade _instance = Ade._internal();
 
@@ -36,7 +36,7 @@ class Ade {
 }
 
 class Tea {
-  List<MenuCategory> list;
+  List<Menu> list;
 
   static final Tea _instance = Tea._internal();
 
@@ -51,7 +51,7 @@ class Tea {
 }
 
 class NCoffee {
-  List<MenuCategory> list;
+  List<Menu> list;
 
   static final NCoffee _instance = NCoffee._internal();
 
@@ -66,7 +66,7 @@ class NCoffee {
 }
 
 class Smoothie {
-  List<MenuCategory> list;
+  List<Menu> list;
 
   static final Smoothie _instance = Smoothie._internal();
 
