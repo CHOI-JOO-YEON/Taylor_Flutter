@@ -4,6 +4,7 @@ import 'package:flutter_kiosk_new/model/MenuList.dart';
 import 'package:flutter_kiosk_new/model/attribute.dart';
 
 import '../model/itemCard.dart';
+import 'detail_page.dart';
 
 class MenuPage extends StatefulWidget {
   @override
@@ -18,13 +19,15 @@ class _MenuPageState extends State<MenuPage> {
   String gender = Attribute().gender;
   int selectedIndex = 0;
   int pageIndex = 0;
-  int numOfItems = 16, numOfRows = 4;
+  int numOfItems = 16, numOfRows = 4, numOfMenu, menuIndex = 0;
+  String selectedCategory;
 
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -73,8 +76,12 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 
-  Container buildCategories() {
-    return Container(
+  Row buildCategories() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+      children: [
+        Container(
           height: 60,
           color: Colors.orange,
           child: ListView.builder(
@@ -83,14 +90,16 @@ class _MenuPageState extends State<MenuPage> {
             itemCount: categories.length,
             itemBuilder: (context, index) => buildCategory(index),
           ),
-        );
+        ),
+      ],
+    );
 
   }
 
   buildCategory(int index) {
     return GestureDetector(
       child: Container(
-        width: ((MediaQuery.of(context).size.width/411.4)/5-3),
+        width: ((MediaQuery.of(context).size.width)/5),
         decoration: BoxDecoration(
             color: selectedIndex == index ? Colors.white : Colors.orange,
             border: selectedIndex != index ? Border.all(
@@ -144,47 +153,49 @@ class _MenuPageState extends State<MenuPage> {
 
         // **여기부터 다시 작성** itemCard 구현해야 함
         itemBuilder: (context, index) {
+          Menu a = m.elementAt(index+pageIndex*numOfItems);
           switch (selectedIndex) {
             case 0:
-              pr = coffees;
+              selectedCategory = 'coffe';
+              numOfMenu = 31;
               break;
             case 1:
-              pr = adeNjuices;
+              selectedCategory = 'ade';
+              numOfMenu = 15;
               break;
             case 2:
-              pr = teas;
+              selectedCategory = 'tea';
+              numOfMenu = 19;
               break;
             case 3:
-              pr = beverages;
+              selectedCategory = 'ncoffe';
+              numOfMenu = 23;
               break;
             case 4 :
-              pr = smoothies;
+              selectedCategory = 'smoothie';
+              numOfMenu = 14;
               break;
           }
-          if(pageIndex == 0){
-            if(index >= pr.length){
-              return Container();
-            }
-            else{
-              return ItemCard(
-                mn: pr[index],
-                press: () =>
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) =>
-                            DetailScreen(product: pr[index]))),
-              );
-            }
-          }
-          else if(index+numOfItems < pr.length){
-            return ItemCard(
-              product: pr[index+numOfItems],
-              press: () => {}
+
+          if (a.category.contains(selectedCategory)) {
+              if (menuIndex >= numOfMenu) {
+                return Container();
+              }
+              else {
+                menuIndex++;
+                return ItemCard(
+                    mn: a,
+                    press: () => {}
                   // Navigator.push(context, MaterialPageRoute(
                   //     builder: (context) =>
-                  //         DetailScreen(product: pr[index+numOfItems]))),
-            );
+                  //         DetailScreen(m: a))),
+                );
+              }
+
+
+            // else
+            //   return Container();
           }
-          else return Container();
         }
     );
   }
