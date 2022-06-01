@@ -26,7 +26,8 @@ class _ItemCardState extends State<ItemCard> {
 
 
     return GestureDetector(
-      // onTap: widget.press, 구현안됨
+      onTap: widget.press,
+      child: buildItem(),
     );
   }
 
@@ -62,10 +63,10 @@ class _ItemCardState extends State<ItemCard> {
               width: imageWidth,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(13),
-                  // image: DecorationImage(
-                  //     image: AssetImage(widget.product.image),
-                  //     fit: BoxFit.cover
-                  // ) 사진 구현 안됨
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/coffee/americano.PNG"),
+                      fit: BoxFit.cover
+                  )
               ),
             ),
             Padding(

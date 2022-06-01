@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_kiosk_new/model/Menu.dart';
 import 'package:flutter_kiosk_new/model/MenuList.dart';
 import 'package:flutter_kiosk_new/model/attribute.dart';
+import 'package:flutter_kiosk_new/model/details/detailScreen.dart';
 import 'package:flutter_kiosk_new/model/makeDrinkList.dart';
 
-import '../model/MenuCategory.dart';
 import '../model/MenuCategoryList.dart';
 import '../model/itemCard.dart';
-import 'detail_page.dart';
+
 
 class MenuPage extends StatefulWidget {
   @override
@@ -38,7 +38,6 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    // MakeList().addMenu();
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -49,6 +48,7 @@ class _MenuPageState extends State<MenuPage> {
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Container(
+                    height: MediaQuery.of(context).size.height*0.1,
                     child: buildGridView(),
                   ),
                 )
@@ -57,33 +57,6 @@ class _MenuPageState extends State<MenuPage> {
 
           ]
       ),
-
-      // body: GridView.builder(
-      //   itemCount: m.length,
-      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      //     crossAxisCount: 3, //1 개의 행에 보여줄 item 개수
-      //     childAspectRatio: 1 / 2, //item 의 가로 1, 세로 2 의 비율
-      //     mainAxisSpacing: 10, //수평 Padding
-      //     crossAxisSpacing: 10, //수직 Padding
-      //   ),
-      //  itemBuilder: (BuildContext context, int index){
-      //    Menu a = m.elementAt(index);
-      //    return Container(
-      //      alignment: Alignment.center,
-      //      child: Column(
-      //        children: [
-      //          Text(a.name),
-      //          Text(a.temp),
-      //          Text(a.price.toString()),
-      //          Text(a.category)
-      //        ],
-      //      ),
-      //    );
-      //  },
-      // )
-
-
-
 
 
     );
@@ -170,8 +143,8 @@ class _MenuPageState extends State<MenuPage> {
 
     return GridView.builder(
         padding: EdgeInsets.all(0),
-        itemCount: mc.length,
-        // itemCount: returnItemCount(),
+        // itemCount: mc.length,
+        itemCount: returnItemCount(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: returnItemRow(),
           mainAxisSpacing: 10,
@@ -181,26 +154,21 @@ class _MenuPageState extends State<MenuPage> {
 
 
 
-        // **여기부터 다시 작성** itemCard 구현해야 함
+
         itemBuilder: (context, index) {
-          Menu a = mc.elementAt(index);
-          return Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 3
-              )
-            ),
-            child: Column(
-              children: [
-                Text(a.name),
-                // Text(a.temp),
-                Text(a.sequence.toString()),
-                Text(a.price.toString()),
-                Text(a.category)
-              ],
-            ),
-          );
+          if(index >= mc.length){
+            return Container();
+          }
+          else {
+            Menu a = mc.elementAt(index);
+            return ItemCard(
+              mn: a,
+              press: () =>
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) =>
+                          DetailScreen(m: a,))),
+            );
+          }
 
         }
     );
