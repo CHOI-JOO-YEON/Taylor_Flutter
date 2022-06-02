@@ -4,6 +4,7 @@ import 'package:flutter_kiosk_new/model/MenuList.dart';
 import 'package:flutter_kiosk_new/model/attribute.dart';
 import 'package:flutter_kiosk_new/model/details/detailScreen.dart';
 import 'package:flutter_kiosk_new/model/makeDrinkList.dart';
+import 'package:flutter_kiosk_new/page/pay_page.dart';
 
 import '../model/MenuCategoryList.dart';
 import '../model/itemCard.dart';
@@ -52,6 +53,19 @@ class _MenuPageState extends State<MenuPage> {
                     child: buildGridView(),
                   ),
                 )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  RaisedButton(child: Text('결제하기', style: TextStyle(fontSize: 20),),
+                      onPressed: (){
+                        Navigator.push( context, MaterialPageRoute(builder: (context) => PayPage()),);
+                      }
+                  )
+                ],
+              ),
             ),
 
 
