@@ -6,6 +6,7 @@ import 'package:flutter_kiosk_new/API/my_api.dart';
 import 'package:flutter_kiosk_new/API/naver_api.dart';
 import 'package:flutter_kiosk_new/model/MenuList.dart';
 import 'package:flutter_kiosk_new/model/attribute.dart';
+import 'package:flutter_kiosk_new/page/recommand_page.dart';
 
 import 'menu_page.dart';
 
@@ -181,7 +182,8 @@ class _MainPageState extends State<MainPage> {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context)=> MenuPage()),
+      // MaterialPageRoute(builder: (context)=> MenuPage()),
+      MaterialPageRoute(builder: (context)=> RecommandPage()),
     );
 
 

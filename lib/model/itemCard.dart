@@ -5,10 +5,12 @@ import 'attribute.dart';
 class ItemCard extends StatefulWidget {
   final Menu mn;
   final Function press;
+  final bool isRecommand;
   const ItemCard({
     Key key,
     this.mn,
     this.press,
+    this.isRecommand
   }) : super(key: key);
 
   @override
@@ -32,21 +34,31 @@ class _ItemCardState extends State<ItemCard> {
   }
 
   Container buildItem() {
-    if(age >= 15 && age <= 45) {
-      edgePadding = 10 * 3 / 4;
-      imageHeight = 85 * 3 / 4;
-      imageWidth = 85 * 3 / 4;
-      titleSize = 14 * 3 / 4;
-      borderWidth = 0;
-      titlePadding = 6 * 3 / 4;
+    if(widget.isRecommand){
+      edgePadding = 15;
+      imageHeight = MediaQuery.of(context).size.width*0.35;
+      imageWidth = MediaQuery.of(context).size.width*0.35;
+      titleSize = 15;
+      borderWidth = 5;
+      titlePadding = 10;
     }
     else {
-      edgePadding = 10;
-      imageHeight = 85;
-      imageWidth = 85;
-      titleSize = 14;
-      borderWidth = 3;
-      titlePadding = 6;
+      if(age >= 15 && age <= 45) {
+        edgePadding = 10 * 3 / 4;
+        imageHeight = 85 * 3 / 4;
+        imageWidth = 85 * 3 / 4;
+        titleSize = 14 * 3 / 4;
+        borderWidth = 0;
+        titlePadding = 6 * 3 / 4;
+      }
+      else {
+        edgePadding = 10;
+        imageHeight = 85;
+        imageWidth = 85;
+        titleSize = 14;
+        borderWidth = 3;
+        titlePadding = 6;
+      }
     }
 
     return Container(
@@ -62,17 +74,27 @@ class _ItemCardState extends State<ItemCard> {
               height: imageHeight,
               width: imageWidth,
               decoration: BoxDecoration(
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(13),
                   image: DecorationImage(
-                      image: AssetImage("assets/images/coffee/americano.PNG"),
-                      fit: BoxFit.cover
+                      image: AssetImage("assets/images/"+widget.mn.category+"/"+widget.mn.id.toString()+".PNG"),
+                      fit: BoxFit.fitHeight
                   )
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: titlePadding),
-              child: Text(widget.mn.name, textAlign: TextAlign.center,
-                style: TextStyle(fontSize: titleSize),),
+              child: Column(
+                children: [
+                  Text(widget.mn.name, textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: titleSize),),
+                  Text(widget.mn.price.toString(), textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: titleSize),),
+                  if(widget.isRecommand)
+                    Text("추천순위 : "+widget.mn.sequence.toString(), textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: titleSize),),
+                ],
+              ),
             ),
           ],
         )

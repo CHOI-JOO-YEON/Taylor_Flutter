@@ -27,10 +27,17 @@ class DetailBody extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(15),
               child: Container(
+                height: MediaQuery.of(context).size.width*0.7,
+                width: MediaQuery.of(context).size.width*0.7,
                 decoration: BoxDecoration(
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(5), //모서리를 둥글게
-                    border: Border.all(color: Colors.black38, width: 3)),
-                child: Image(image: AssetImage("assets/images/coffee/americano.PNG")),
+                    border: Border.all(color: Colors.black38, width: 3),
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/"+m.category+"/"+m.id.toString()+".PNG"),
+                        fit: BoxFit.fitHeight
+                    )
+                ),
               ),
             ),
             Text(m.name,style: TextStyle(fontSize: 30),),

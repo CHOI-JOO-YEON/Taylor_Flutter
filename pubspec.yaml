@@ -54,8 +54,8 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/ade/
-    - assets/images/ncoffee/
-    - assets/images/coffee/
+    - assets/images/ncoffe/
+    - assets/images/coffe/
     - assets/images/smoothie/
     - assets/images/tea/
 

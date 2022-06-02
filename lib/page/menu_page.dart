@@ -49,7 +49,6 @@ class _MenuPageState extends State<MenuPage> {
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Container(
-                    height: MediaQuery.of(context).size.height*0.1,
                     child: buildGridView(),
                   ),
                 )
@@ -157,8 +156,8 @@ class _MenuPageState extends State<MenuPage> {
 
     return GridView.builder(
         padding: EdgeInsets.all(0),
-        // itemCount: mc.length,
-        itemCount: returnItemCount(),
+        itemCount: mc.length,
+        // itemCount: returnItemCount(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: returnItemRow(),
           mainAxisSpacing: 10,
@@ -181,6 +180,7 @@ class _MenuPageState extends State<MenuPage> {
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context) =>
                           DetailScreen(m: a,))),
+              isRecommand: false,
             );
           }
 
