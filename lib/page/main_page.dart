@@ -100,35 +100,38 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
-          Container(
-            height: MediaQuery.of(context).size.height/4*heightR,
-            child: Column(
-              children: [
-                Container(
-                  height: 60,
-                  width: 60,
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(13),
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/icons/terrace.png"),
-                          fit: BoxFit.fitHeight
-                      )
+          Expanded(
+            child: Container(
+              height: MediaQuery.of(context).size.height/4*heightR,
+              child: Column(
+                children: [
+                  Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(13),
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/icons/terrace.png"),
+                            fit: BoxFit.fitHeight
+                        )
+                    ),
                   ),
-                ),
-                Text('TERRACE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
-                Padding(padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/30),
-                child: Column(
-                  children: [
-                    Text('안녕하세요',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                    Text('포장 또는 매장 이용을',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                    Text('눌러주세요',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                  ],
-                ),)
-              ],
+                  Text('TERRACE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
+                  
+                  Padding(padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/30),
+                  child: Column(
+                    children: [
+                      Text('안녕하세요',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                      Text('포장 또는 매장 이용을',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                      Text('눌러주세요',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                    ],
+                  ),)
+                ],
+              ),
             ),
           ),
-
+          SizedBox(height: 50,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -144,6 +147,7 @@ class _MainPageState extends State<MainPage> {
 
             ],
           ),
+          SizedBox(height: 150,)
         ],
       ),
     );

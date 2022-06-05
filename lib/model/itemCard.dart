@@ -45,9 +45,9 @@ class _ItemCardState extends State<ItemCard> {
     else {
       if(age >= 15 && age <= 45) {
         edgePadding = 10 * 3 / 4;
-        imageHeight = 85 * 3 / 4;
+        imageHeight = 50;
         imageWidth = 85 * 3 / 4;
-        titleSize = 14 * 3 / 4;
+        titleSize = 10;
         borderWidth = 0;
         titlePadding = 6 * 3 / 4;
       }
@@ -79,9 +79,9 @@ class _ItemCardState extends State<ItemCard> {
                     style: TextStyle(fontSize: titleSize),),
                   Text(widget.mn.price.toString(), textAlign: TextAlign.center,
                     style: TextStyle(fontSize: titleSize),),
-                  if(widget.isRecommand)
-                    Text("추천순위 : "+widget.mn.sequence.toString(), textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: titleSize),),
+                  // if(widget.isRecommand)
+                  //   Text("추천순위 : "+widget.mn.sequence.toString(), textAlign: TextAlign.center,
+                  //     style: TextStyle(fontSize: titleSize),),
                 ],
               ),
             ),
@@ -112,7 +112,7 @@ class _ItemCardState extends State<ItemCard> {
               decoration: BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
-                      image: AssetImage("assets/images/icons/"+widget.mn.sequence.toString()+".PNG"),
+                      image: AssetImage("assets/images/icons/"+widget.mn.sequence.toString()+".png"),
                       fit: BoxFit.fitHeight
                   )
               ),

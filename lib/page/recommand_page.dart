@@ -121,9 +121,9 @@ class RecommandPage extends StatelessWidget {
         itemCount: 4,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 15,
-          childAspectRatio: 0.75,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          childAspectRatio: 0.82,
         ),
 
 

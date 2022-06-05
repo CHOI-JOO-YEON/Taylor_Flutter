@@ -45,13 +45,14 @@ class _MenuPageState extends State<MenuPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height*0.17,
+              // height: MediaQuery.of(context).size.height*0.17,
+              height: 74,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 60,
-                    width: 60,
+                    height: 50,
+                    width: 50,
                     decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(13),
@@ -79,7 +80,7 @@ class _MenuPageState extends State<MenuPage> {
                 child: buildCategories()),
             Expanded(
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(7.0),
                   child: Container(
                     decoration: BoxDecoration(
                         border: Border(
@@ -94,9 +95,11 @@ class _MenuPageState extends State<MenuPage> {
                 )
             ),
             Container(
-              height: MediaQuery.of(context).size.height*0.15,
+              // height: MediaQuery.of(context).size.height*0.15,
+              height: 60,
               child: Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.02),
+                padding: EdgeInsets.all(2),
+                // padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.02),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -217,9 +220,9 @@ class _MenuPageState extends State<MenuPage> {
         // itemCount: returnItemCount(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: returnItemRow(),
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 0.8,
+          mainAxisSpacing: 5,
+          crossAxisSpacing: 5,
+          childAspectRatio: 0.78,
         ),
 
 
