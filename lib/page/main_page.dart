@@ -100,8 +100,33 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
-          SizedBox(
+          Container(
             height: MediaQuery.of(context).size.height/4*heightR,
+            child: Column(
+              children: [
+                Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(13),
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/icons/terrace.png"),
+                          fit: BoxFit.fitHeight
+                      )
+                  ),
+                ),
+                Text('TERRACE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
+                Padding(padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/30),
+                child: Column(
+                  children: [
+                    Text('안녕하세요',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                    Text('포장 또는 매장 이용을',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                    Text('눌러주세요',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                  ],
+                ),)
+              ],
+            ),
           ),
 
           Row(
@@ -114,7 +139,7 @@ class _MainPageState extends State<MainPage> {
               Padding(padding: EdgeInsets.all(20.0*widthR)),
               GestureDetector(
                   onTap : goMenuPage,
-                  child: isTakeOut('매장')
+                  child: isTakeOut('매장 이용')
               ),
 
             ],
@@ -125,28 +150,49 @@ class _MainPageState extends State<MainPage> {
   }
 
   Container isTakeOut(String a) {
-    String word = '매장';
-    Widget i = Icon(Icons.restaurant, size: 60);
+    String word = '매장 이용';
+    String img = 'assets/images/icons/eat.PNG';
+
     if(a.contains('포장')){
       word = a;
-      i = Icon(Icons.shopping_bag_outlined, size: 60,);
+      img = 'assets/images/icons/takeout.PNG';
     }
     return Container(
-                  height: 120*widthR,
-                  width: 120*widthR,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15), //모서리를 둥글게
-                      border: Border.all(color: Colors.black38, width: 3*widthR)), //테두리
-                  child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[i,
-                      Text(word, style: TextStyle(fontWeight: FontWeight.bold),)],),
-                );
+      height: 130*widthR,
+      width: 130*widthR,
+      decoration: BoxDecoration(
+        color: Color(0xffCDD9FF),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Colors.black, width: 3),
+      ),
+
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8*widthR),
+            child: Container(
+              height: 75*widthR,
+              width: 75*widthR,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                    image: AssetImage(img),
+                    fit: BoxFit.fitHeight
+                ),
+              ),
+            ),
+          ),
+          Text(a, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+        ],
+      ),
+    );
   }
 
   void goMenuPage() async{
-                  final image = await _cameraController.takePicture();
-                  checkAttribute(File(image.path));
-                }
+    final image = await _cameraController.takePicture();
+    checkAttribute(File(image.path));
+  }
   Future<void> checkAttribute(File f) async {
     var map = await naverApi(f);
     int age;

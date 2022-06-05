@@ -35,12 +35,12 @@ class _ItemCardState extends State<ItemCard> {
 
   Container buildItem() {
     if(widget.isRecommand){
-      edgePadding = 15;
-      imageHeight = MediaQuery.of(context).size.width*0.35;
-      imageWidth = MediaQuery.of(context).size.width*0.35;
+      edgePadding = MediaQuery.of(context).size.height*0.02;
+      imageHeight = MediaQuery.of(context).size.width*0.32;
+      imageWidth = MediaQuery.of(context).size.width*0.32;
       titleSize = 15;
-      borderWidth = 5;
-      titlePadding = 10;
+      borderWidth = MediaQuery.of(context).size.width*0.012;
+      titlePadding = MediaQuery.of(context).size.height*0.01;
     }
     else {
       if(age >= 15 && age <= 45) {
@@ -70,18 +70,7 @@ class _ItemCardState extends State<ItemCard> {
         ),
         child: Column(
           children: [
-            Container(
-              height: imageHeight,
-              width: imageWidth,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(13),
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/"+widget.mn.category+"/"+widget.mn.id.toString()+".PNG"),
-                      fit: BoxFit.fitHeight
-                  )
-              ),
-            ),
+            buildImage(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: titlePadding),
               child: Column(
@@ -101,6 +90,57 @@ class _ItemCardState extends State<ItemCard> {
     );
   }
 
+  Stack buildImage() {
+    if(widget.mn.sequence <= 3){
+      return Stack(
+          children: [
+            Container(
+              height: imageHeight,
+              width: imageWidth,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(13),
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/"+widget.mn.category+"/"+widget.mn.id.toString()+".PNG"),
+                      fit: BoxFit.fitHeight
+                  )
+              ),
+            ),
+            Container(
+              height: imageHeight/2.5,
+              width: imageWidth/2.5,
+              decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/icons/"+widget.mn.sequence.toString()+".PNG"),
+                      fit: BoxFit.fitHeight
+                  )
+              ),
+            )
+          ]
+      );
+    }
+    else{
+      return Stack(
+          children: [
+            Container(
+              height: imageHeight,
+              width: imageWidth,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(13),
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/"+widget.mn.category+"/"+widget.mn.id.toString()+".PNG"),
+                      fit: BoxFit.fitHeight
+                  )
+              ),
+            ),
+          ]
+      );
+    }
+
+  }
+
   Border buildBorder(){
     if (age >= 15 && age <= 45) {
       return Border();
@@ -113,10 +153,10 @@ class _ItemCardState extends State<ItemCard> {
 
   Color selectColor() {
     if (age >= 15 && age <= 45) {
-      return const Color(0xffeeeeee);
+      return const Color(0xffE5E5E5);
     }
     else {
-      return widget.mn.temp.contains('HOT') ? Colors.red : Colors.blue;
+      return widget.mn.temp.contains('HOT') ? Color(0xffFDACAB) : Color(0xffC9D5FB);
     }
   }
 }

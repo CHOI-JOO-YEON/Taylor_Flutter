@@ -40,30 +40,95 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+
       body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            buildCategories(),
+            Container(
+              height: MediaQuery.of(context).size.height*0.17,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(13),
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/icons/terrace.png"),
+                            fit: BoxFit.fitHeight
+                        )
+                    ),
+                  ),
+                  Text('TERRACE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
+                ],
+              ),
+            ),
+            Container(
+                decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                      width: 1.5
+                  ),
+                  bottom: BorderSide(
+                      width: 0.5
+                  ),
+                )
+            ),
+                child: buildCategories()),
             Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                              width: 1.5
+                          ),
+                        )
+                    ),
+                    height: MediaQuery.of(context).size.height*0.61,
                     child: buildGridView(),
                   ),
                 )
             ),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  RaisedButton(child: Text('결제하기', style: TextStyle(fontSize: 20),),
-                      onPressed: (){
-                        Navigator.push( context, MaterialPageRoute(builder: (context) => PayPage()),);
-                      }
-                  )
-                ],
+            Container(
+              height: MediaQuery.of(context).size.height*0.15,
+              child: Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.02),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ButtonTheme(
+                      minWidth: 120,
+                      height: 50,
+                      shape: RoundedRectangleBorder( //버튼을 둥글게 처리
+                          borderRadius: BorderRadius.circular(50)),
+                      child: RaisedButton(child: Text('취소하기'),
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                        color: Color(0xffFEADAC),),
+                    ),
+                    ButtonTheme(
+                      minWidth: 120,
+                      height: 50,
+                      shape: RoundedRectangleBorder( //버튼을 둥글게 처리
+                          borderRadius: BorderRadius.circular(50)),
+                      child: RaisedButton(child: Text('주문하기'),
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => PayPage()),
+                          );
+                        },
+                        color: Color(0xff749BE8),
+                      ),
+                    ),
+
+                  ],
+                ),
               ),
             ),
 
@@ -81,8 +146,10 @@ class _MenuPageState extends State<MenuPage> {
 
       children: [
         Container(
-          height: 60,
-          color: Colors.orange,
+
+          height: MediaQuery.of(context).size.height*0.07,
+          width: MediaQuery.of(context).size.width,
+          color: Color(0xffC9D6F9),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
@@ -97,36 +164,26 @@ class _MenuPageState extends State<MenuPage> {
 
   buildCategory(int index) {
     return GestureDetector(
-      child: Container(
-        width: ((MediaQuery.of(context).size.width)/5),
-        decoration: BoxDecoration(
-            color: selectedIndex == index ? Colors.white : Colors.orange,
-            border: selectedIndex != index ? Border.all(
-              color: Colors.black, width: 3,) :
-            Border(
-                top: BorderSide(
-                  color: Colors.black,
-                  width: 3,),
-                left: BorderSide(
-                  color: Colors.black,
-                  width: 3,),
-                right: BorderSide(
-                  color: Colors.black,
-                  width: 3,),
-                bottom: BorderSide(
-                  color: Colors.white,
-                  width: 3,)
-            )
-        ),
-        child: Center(
-            child:Text(
-              categories[index],
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: Colors.black
-              ),
-            )
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+        child: Container(
+
+          width: ((MediaQuery.of(context).size.width)/6),
+          decoration: BoxDecoration(
+              color: selectedIndex == index ? Colors.white : Colors.transparent,
+              border: (age >= 15 && age <= 45) ? Border.all(color: Colors.transparent, width: 3,) : Border.all(color: Colors.black, width: 3,),
+              borderRadius: BorderRadius.circular(15)
+          ),
+          child: Center(
+              child:Text(
+                categories[index],
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Colors.black
+                ),
+              )
+          ),
         ),
       ),
       onTap: () {

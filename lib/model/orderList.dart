@@ -18,6 +18,7 @@ class Order {
   final int price;
   int num;
   final String temp;
+  final String category;
   final int id;
 
 
@@ -26,6 +27,7 @@ class Order {
     this.price,
     this.num,
     this.temp,
+    this.category,
     this.id
   });
 
