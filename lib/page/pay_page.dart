@@ -20,7 +20,7 @@ class _PayPageState extends State<PayPage> {
 
     int age = Attribute().age;
     double listHeight = MediaQuery.of(context).size.height*0.6;
-    double menuHeight = listHeight/5;
+    double menuHeight = listHeight/4.1;
     double menuWidth = MediaQuery.of(context).size.width*0.95;
     return Scaffold(
         body: Column(
@@ -179,7 +179,7 @@ class _PayPageState extends State<PayPage> {
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: EdgeInsets.only(
-                bottom: menuHeight/10),
+                bottom: 2),
             child: Container(
               height: menuHeight,
               width: menuWidth,
