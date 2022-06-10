@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'Menu.dart';
 
 class CountMenu{
@@ -20,6 +22,8 @@ class Order {
   final String temp;
   final String category;
   final int id;
+  int age;
+  String gender;
 
 
   Order({
@@ -28,8 +32,24 @@ class Order {
     this.num,
     this.temp,
     this.category,
-    this.id
+    this.id,
+    this.age,
+    this.gender
+
   });
+
+
+  Map toJson() =>{
+    'name' : name,
+    'price' : price,
+    'num' : num,
+    'temp' : temp,
+    'category' : category,
+    'id' : id,
+    'age': age,
+    'gender': gender,
+  };
+
 
 }
 
