@@ -7,6 +7,7 @@ import 'MenuList.dart';
 class MakeList{
   List<Menu> m = MenuList().list;
 
+
   Coffee coffe = new Coffee();
   Ade ade = new Ade();
   Tea tea = new Tea();
@@ -16,6 +17,12 @@ class MakeList{
 
 
   addMenu() {
+    coffe.list= new List();
+    ade.list = new List();
+    tea.list = new List();
+    ncoffe.list = new List();
+    smoothie.list = new List();
+
     m.sort((a, b) => a.sequence.compareTo(b.sequence));
 
     for(int i = 0; i < m.length; i++){

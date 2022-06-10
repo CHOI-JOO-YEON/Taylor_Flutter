@@ -45,14 +45,20 @@ class _MenuPageState extends State<MenuPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              // height: MediaQuery.of(context).size.height*0.17,
-              height: 74,
+              width: MediaQuery.of(context).size.width*0.85,
+              decoration: BoxDecoration(
+                  border: Border(
+                    // bottom: BorderSide(
+                    //     width: 1.5
+                    // ),
+                  )
+              ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(height: 20,),
                   Container(
-                    height: 50,
-                    width: 50,
+                    height: 45,
+                    width: 45,
                     decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(13),

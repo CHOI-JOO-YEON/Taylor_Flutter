@@ -6,6 +6,7 @@ import 'package:flutter_kiosk_new/model/attribute.dart';
 import 'package:flutter_kiosk_new/model/details/detailScreen.dart';
 import 'package:flutter_kiosk_new/model/itemCard.dart';
 import 'package:flutter_kiosk_new/page/menu_page.dart';
+import 'package:flutter_kiosk_new/page/pay_page.dart';
 
 class RecommandPage extends StatelessWidget {
   const RecommandPage({Key key}) : super(key: key);
@@ -37,20 +38,34 @@ class RecommandPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/icons/terrace.png"),
-                        fit: BoxFit.fitHeight
-                    ),
 
+                Container(
+                  width: MediaQuery.of(context).size.width*0.85,
+                  decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                            width: 1.5
+                        ),
+                      )
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 45,
+                        width: 45,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(13),
+                            image: DecorationImage(
+                                image: AssetImage("assets/images/icons/terrace.png"),
+                                fit: BoxFit.fitHeight
+                            )
+                        ),
+                      ),
+                      Text('TERRACE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
+                    ],
                   ),
                 ),
-                Text('TERRACE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
               ],
             ),
           ),
@@ -59,7 +74,7 @@ class RecommandPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height*0.7,
             width: MediaQuery.of(context).size.width*0.95,
             decoration: BoxDecoration(
-              color: (age >= 15 && age <= 45) ? Color(0xffCDD9FF) : Color(0xffE5E5E5),
+              // color: (age >= 15 && age <= 45) ? Color(0xffCDD9FF) : Color(0xffE5E5E5),
               borderRadius: BorderRadius.circular(15), //모서리를 둥글게
               border: Border.all(width: 2), //테두리
             ),
@@ -87,26 +102,51 @@ class RecommandPage extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.025),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width*0.55,
-                  height: 50,
-                  shape: RoundedRectangleBorder( //버튼을 둥글게 처리
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(color: (age >= 15 && age <= 45) ? Colors.transparent : Colors.black,width: 2), ),
-                  child: RaisedButton(child: Text('더 많은 메뉴 보기 >', style: TextStyle(fontSize: 20),),
-                    onPressed: (){
-                      Navigator.push( context, MaterialPageRoute(builder: (context) => MenuPage()),);
-                    },
-                    color: Color(0xffFFF7AC),
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.025),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ButtonTheme(
+                      minWidth: 150,
+                      height: 50,
+                      shape: RoundedRectangleBorder( //버튼을 둥글게 처리
+                        borderRadius: BorderRadius.circular(50),
+                        side: BorderSide(color: (age >= 15 && age <= 45) ? Colors.transparent : Colors.black,width: 2), ),
+                      child: RaisedButton(child: Text('더 많은 메뉴 보기 >', style: TextStyle(fontSize: 15),),
+                        onPressed: (){
+                          Navigator.push( context, MaterialPageRoute(builder: (context) => MenuPage()),);
+                        },
+                        color: Color(0xffFFF7AC),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.025),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ButtonTheme(
+                      minWidth: 150,
+                      height: 50,
+                      shape: RoundedRectangleBorder( //버튼을 둥글게 처리
+                        borderRadius: BorderRadius.circular(50),
+                        side: BorderSide(color: (age >= 15 && age <= 45) ? Colors.transparent : Colors.black,width: 2), ),
+                      child: RaisedButton(child: Text('결제하기 >', style: TextStyle(fontSize: 20),),
+                        onPressed: (){
+                          Navigator.push( context, MaterialPageRoute(builder: (context) => PayPage()),);
+                        },
+                        color: Color(0xff749BE8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           )
           // buildButton(context, '더 많은 메뉴'),
         ],

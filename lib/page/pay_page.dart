@@ -4,6 +4,7 @@ import 'package:flutter_kiosk_new/model/attribute.dart';
 import 'package:flutter_kiosk_new/model/orderList.dart';
 import 'package:flutter_kiosk_new/page/main_page.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
+import 'package:flutter_kiosk_new/model/MenuCategoryList.dart';
 
 class PayPage extends StatefulWidget {
   int sum = SumGet().SumG();
@@ -32,7 +33,7 @@ class _PayPageState extends State<PayPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height*0.05,
+                    height: 20,
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width*0.85,
@@ -46,8 +47,8 @@ class _PayPageState extends State<PayPage> {
                     child: Column(
                       children: [
                         Container(
-                          height: 60,
-                          width: 60,
+                          height: 45,
+                          width: 45,
                           decoration: BoxDecoration(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(13),
@@ -76,6 +77,7 @@ class _PayPageState extends State<PayPage> {
                           child: OutlineButton(onPressed: (){
                             setState(() {
                               orders.clear();
+
                               Navigator.pop(context);
                             });
                           },
@@ -149,6 +151,8 @@ class _PayPageState extends State<PayPage> {
                           child: RaisedButton(child: Text('결제하기'),
                             onPressed: (){
                               orders.clear();
+
+
                               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                                   builder: (BuildContext context) =>
                                       MainPage()), (route) => false);

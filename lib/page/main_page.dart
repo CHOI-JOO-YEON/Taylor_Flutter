@@ -31,10 +31,10 @@ class _MainPageState extends State<MainPage> {
   @override
   void dispose() {
     // 화면에서 벗어날 때 카메라 제어기를 위해 OS에게 할당 받은 리소스를 정리 합니다.
-    if (_cameraController != null) {
-      _cameraController.dispose();
-    }
-    super.dispose();
+    // if (_cameraController != null) {
+    //   _cameraController.dispose();
+    // }
+    // super.dispose();
   }
 
   void readyToCamera() async {
@@ -71,7 +71,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     _cameraController = CameraController(
-        camera_dir, ResolutionPreset.high // 가장 높은 해상도의 기능을 쓸 수 있도록 합니다.
+        camera_dir, ResolutionPreset.medium // 가장 높은 해상도의 기능을 쓸 수 있도록 합니다.
     );
     _cameraController.initialize().then((value) {
       // 카메라 준비가 끝나면 카메라 미리보기를 보여주기 위해 앱 화면을 다시 그립니다.
@@ -83,8 +83,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     heightR = (MediaQuery.of(context).size.height/820.6);
     widthR = (MediaQuery.of(context).size.width/411.4);
-    return Scaffold(
-      body: Column(
+    return  Scaffold(
+      body: _cameraController==null?Center(child: CircularProgressIndicator()) : Column(
         children: [
           SizedBox(
             height: 50,
@@ -96,7 +96,7 @@ class _MainPageState extends State<MainPage> {
               Padding(
                 padding: EdgeInsets.all(8.0*widthR),
                 child: SizedBox(
-                    height: MediaQuery.of(context).size.height/6*heightR, child: CameraPreview(_cameraController)),
+                    height: MediaQuery.of(context).size.height/6*heightR, child: CameraPreview(_cameraController )),
               ),
             ],
           ),
