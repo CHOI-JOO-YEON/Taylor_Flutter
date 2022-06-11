@@ -13,7 +13,7 @@ class CustomPage extends StatefulWidget {
 
 class _CustomPageState extends State<CustomPage> {
   double age = 25;
-  String gender = 'MALE';
+  String gender = 'male';
   String _selectedMenu = '';
 
   @override
