@@ -38,7 +38,7 @@ class _ItemCardState extends State<ItemCard> {
       edgePadding = MediaQuery.of(context).size.height*0.02;
       imageHeight = MediaQuery.of(context).size.width*0.32;
       imageWidth = MediaQuery.of(context).size.width*0.32;
-      titleSize = 14;
+      titleSize = 13;
       borderWidth = MediaQuery.of(context).size.width*0.012;
       titlePadding = MediaQuery.of(context).size.height*0.01;
     }

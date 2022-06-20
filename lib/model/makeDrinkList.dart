@@ -23,7 +23,11 @@ class MakeList{
     ncoffe.list = new List();
     smoothie.list = new List();
 
+
+
+
     m.sort((a, b) => a.sequence.compareTo(b.sequence));
+    // m = List.from(m.reversed);
 
     for(int i = 0; i < m.length; i++){
       Menu a = m.elementAt(i);

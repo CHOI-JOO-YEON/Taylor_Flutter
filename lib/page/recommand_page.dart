@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kiosk_new/model/Menu.dart';
@@ -5,8 +6,11 @@ import 'package:flutter_kiosk_new/model/MenuList.dart';
 import 'package:flutter_kiosk_new/model/attribute.dart';
 import 'package:flutter_kiosk_new/model/details/detailScreen.dart';
 import 'package:flutter_kiosk_new/model/itemCard.dart';
+import 'package:flutter_kiosk_new/model/orderList.dart';
+import 'package:flutter_kiosk_new/model/temp.dart';
 import 'package:flutter_kiosk_new/page/menu_page.dart';
 import 'package:flutter_kiosk_new/page/pay_page.dart';
+import 'package:timer_builder/timer_builder.dart';
 
 class RecommandPage extends StatelessWidget {
   const RecommandPage({Key key}) : super(key: key);
@@ -29,15 +33,14 @@ class RecommandPage extends StatelessWidget {
     }
 
     return Scaffold(
-
       body: Column(
-
         children: [
           Container(
             height: MediaQuery.of(context).size.height*0.15,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
 
                 Container(
                   width: MediaQuery.of(context).size.width*0.85,
@@ -50,17 +53,55 @@ class RecommandPage extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Container(
-                        height: 45,
-                        width: 45,
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(13),
-                            image: DecorationImage(
-                                image: AssetImage("assets/images/icons/terrace.png"),
-                                fit: BoxFit.fitHeight
-                            )
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            height: 45,
+                            width: 90,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end  ,
+                              children: [
+                                Text("현재 기온 " + Temp().temp.toString() + "℃"),
+                                TimerBuilder.periodic(
+                                    const Duration(seconds: 1),
+                                    builder: (context) {
+                                      return Text(formatDate(DateTime.now(),
+                                          [hh, ':', nn, ':', ss, ' ', am]));
+                                    }),
+
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 45,
+                            width: 45,
+                            decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(13),
+                                image: DecorationImage(
+                                    image: AssetImage("assets/images/icons/terrace.png"),
+                                    fit: BoxFit.fitHeight
+                                )
+                            ),
+                          ),
+                          SizedBox(
+                            height: 45,
+                            width: 90,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(Attribute().age.toString(),style: TextStyle(fontSize: 8)),
+                                    Text(Attribute().gender, style: TextStyle(fontSize: 8)),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                       Text('TERRACE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
                     ],
@@ -102,6 +143,7 @@ class RecommandPage extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 15,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -138,7 +180,12 @@ class RecommandPage extends StatelessWidget {
                         side: BorderSide(color: (age >= 15 && age <= 45) ? Colors.transparent : Colors.black,width: 2), ),
                       child: RaisedButton(child: Text('결제하기 >', style: TextStyle(fontSize: 20),),
                         onPressed: (){
-                          Navigator.push( context, MaterialPageRoute(builder: (context) => PayPage()),);
+                          if (orders.isEmpty) {
+                            return null;
+                          }else {
+                            Navigator.push( context, MaterialPageRoute(builder: (context) => PayPage()),);
+                          }
+
                         },
                         color: Color(0xff749BE8),
                       ),
@@ -156,7 +203,9 @@ class RecommandPage extends StatelessWidget {
 
 
   GridView buildGridView(List<Menu> m) {
+
     return GridView.builder(
+        physics: NeverScrollableScrollPhysics(),
         padding: EdgeInsets.all(0),
         itemCount: 4,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

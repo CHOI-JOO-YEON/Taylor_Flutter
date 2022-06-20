@@ -1,13 +1,16 @@
 import 'dart:convert';
 
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kiosk_new/API/order_api.dart';
 import 'package:flutter_kiosk_new/model/attribute.dart';
 import 'package:flutter_kiosk_new/model/orderList.dart';
+import 'package:flutter_kiosk_new/model/temp.dart';
 import 'package:flutter_kiosk_new/page/main_page.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:flutter_kiosk_new/model/MenuCategoryList.dart';
+import 'package:timer_builder/timer_builder.dart';
 
 class PayPage extends StatefulWidget {
   int sum = SumGet().SumG();
@@ -35,7 +38,7 @@ class _PayPageState extends State<PayPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                height: 20,
+                height: 18,
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.85,
@@ -45,16 +48,55 @@ class _PayPageState extends State<PayPage> {
                 )),
                 child: Column(
                   children: [
-                    Container(
-                      height: 45,
-                      width: 45,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(13),
-                          image: DecorationImage(
-                              image:
-                                  AssetImage("assets/images/icons/terrace.png"),
-                              fit: BoxFit.fitHeight)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          height: 45,
+                          width: 90,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end  ,
+                            children: [
+                              Text("현재 기온 " + Temp().temp.toString() + "℃"),
+                              TimerBuilder.periodic(
+                                  const Duration(seconds: 1),
+                                  builder: (context) {
+                                    return Text(formatDate(DateTime.now(),
+                                        [hh, ':', nn, ':', ss, ' ', am]));
+                                  }),
+
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 45,
+                          width: 45,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(13),
+                              image: DecorationImage(
+                                  image: AssetImage("assets/images/icons/terrace.png"),
+                                  fit: BoxFit.fitHeight
+                              )
+                          ),
+                        ),
+                        SizedBox(
+                          height: 45,
+                          width: 90,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(Attribute().age.toString(),style: TextStyle(fontSize: 8)),
+                                  Text(Attribute().gender, style: TextStyle(fontSize: 8)),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                     Text(
                       'TERRACE',
