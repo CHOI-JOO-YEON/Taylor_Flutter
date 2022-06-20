@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_kiosk_new/model/Menu.dart';
 import 'package:flutter_kiosk_new/model/MenuList.dart';
 import 'package:flutter_kiosk_new/model/air.dart';
@@ -18,13 +19,14 @@ import '../model/MenuCategoryList.dart';
 import '../model/itemCard.dart';
 import 'main_page.dart';
 import '../model/air.dart';
+
 class MenuPage extends StatefulWidget {
   @override
   _MenuPageState createState() => _MenuPageState();
 }
 
 class _MenuPageState extends State<MenuPage> {
-  ScrollController scrollController;
+  final scrollController = ScrollController();
   List<Menu> m = MenuList().list;
   Coffee coffe = new Coffee();
   Ade ade = new Ade();
@@ -45,11 +47,7 @@ class _MenuPageState extends State<MenuPage> {
   void initState() {
     super.initState();
     MakeList().addMenu();
-
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,16 +74,14 @@ class _MenuPageState extends State<MenuPage> {
                     height: 45,
                     width: 90,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end  ,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text("현재 기온 " + Temp().temp.toString() + "℃"),
-                        TimerBuilder.periodic(
-                            const Duration(seconds: 1),
+                        TimerBuilder.periodic(const Duration(seconds: 1),
                             builder: (context) {
-                              return Text(formatDate(DateTime.now(),
-                                  [hh, ':', nn, ':', ss, ' ', am]));
-                            }),
-
+                          return Text(formatDate(
+                              DateTime.now(), [hh, ':', nn, ':', ss, ' ', am]));
+                        }),
                       ],
                     ),
                   ),
@@ -96,10 +92,9 @@ class _MenuPageState extends State<MenuPage> {
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(13),
                         image: DecorationImage(
-                            image: AssetImage("assets/images/icons/terrace.png"),
-                            fit: BoxFit.fitHeight
-                        )
-                    ),
+                            image:
+                                AssetImage("assets/images/icons/terrace.png"),
+                            fit: BoxFit.fitHeight)),
                   ),
                   SizedBox(
                     height: 45,
@@ -110,8 +105,10 @@ class _MenuPageState extends State<MenuPage> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(Attribute().age.toString(),style: TextStyle(fontSize: 8)),
-                            Text(Attribute().gender, style: TextStyle(fontSize: 8)),
+                            Text(Attribute().age.toString(),
+                                style: TextStyle(fontSize: 8)),
+                            Text(Attribute().gender,
+                                style: TextStyle(fontSize: 8)),
                           ],
                         ),
                       ],
@@ -158,17 +155,22 @@ class _MenuPageState extends State<MenuPage> {
                   minWidth: 120,
                   height: 50,
                   shape: RoundedRectangleBorder(
-                      //버튼을 둥글게 처리
-                      borderRadius: BorderRadius.circular(50)),
+                    //버튼을 둥글게 처리
+                    borderRadius: BorderRadius.circular(50),
+                    side: BorderSide(
+                        color: (age >= 15 && age <= 45)
+                            ? Colors.transparent
+                            : Colors.black,
+                        width: 2),
+                  ),
                   child: RaisedButton(
                     child: Text('취소하기'),
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  MainPage()),
-                              (route) => false);
+                              builder: (BuildContext context) => MainPage()),
+                          (route) => false);
                     },
                     color: Color(0xffFEADAC),
                   ),
@@ -176,11 +178,15 @@ class _MenuPageState extends State<MenuPage> {
                 ButtonTheme(
                   minWidth: 120,
                   height: 50,
-
                   shape: RoundedRectangleBorder(
-                      //버튼을 둥글게 처리
-                      borderRadius: BorderRadius.circular(50)),
-
+                    //버튼을 둥글게 처리
+                    borderRadius: BorderRadius.circular(50),
+                    side: BorderSide(
+                        color: (age >= 15 && age <= 45)
+                            ? Colors.transparent
+                            : Colors.black,
+                        width: 2),
+                  ),
                   child: RaisedButton(
                     child: Text('주문하기'),
                     onPressed: () {
@@ -252,10 +258,19 @@ class _MenuPageState extends State<MenuPage> {
           )),
         ),
       ),
-      onTap: () {
+      onTap: () async {
         setState(() {
           selectedIndex = index;
-          print(scrollController);
+        });
+        // await Future.delayed(const Duration(milliseconds: 300));
+        SchedulerBinding.instance?.addPostFrameCallback((_) {
+          scrollController.jumpTo(scrollController.position.minScrollExtent);
+
+          // scrollController.animateTo(
+          //     scrollController.position.minScrollExtent,
+          //     // duration: Duration(milliseconds: 1),
+          //     curve: Curves.fastOutSlowIn
+          // );
         });
       },
     );
@@ -293,16 +308,15 @@ class _MenuPageState extends State<MenuPage> {
             return ItemCard(
               mn: a,
               press: () {
-                if(!a.salesStatus)
-                  {
-                    return null;
-                  }else{
+                if (!a.salesStatus) {
+                  return null;
+                } else {
                   Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DetailScreen(
-                                    m: a,
-                                  )));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailScreen(
+                                m: a,
+                              )));
                 }
               },
               // press: () =>
