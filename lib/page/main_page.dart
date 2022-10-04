@@ -7,12 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_kiosk_new/API/my_api.dart';
 import 'package:flutter_kiosk_new/API/naver_api.dart';
 import 'package:flutter_kiosk_new/model/MenuList.dart';
-import 'package:flutter_kiosk_new/model/air.dart';
+import 'package:flutter_kiosk_new/model/Weather_API.dart';
 import 'package:flutter_kiosk_new/model/attribute.dart';
 import 'package:flutter_kiosk_new/model/temp.dart';
 import 'package:flutter_kiosk_new/page/custom_page.dart';
 import 'package:flutter_kiosk_new/page/recommand_page.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:timer_builder/timer_builder.dart';
 
@@ -33,32 +32,39 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    // 화면에 처음 진입할 때 카메라 사용을 준비 하도록 합니다.
     super.initState();
     print('이닛!');
     readyToCamera();
-    fetchData().then((airResult) {
+    Temp temp = new Temp();
+    fetchData().then((weatherApi) {
       setState(() {
-        Temp temp = new Temp();
-        temp.temp = airResult.data.current.weather.tp;
-        print(temp.temp);
+        if (weatherApi == null) {
+          temp.temp = 22.3;
+        } else {
+          temp.temp = weatherApi.main.temp - 273;
+        }
+
       });
     });
   }
 
-  Future<AirResult> fetchData() async {
+  Future<Weather_API> fetchData() async {
     var response = await http.get(
-        'https://api.airvisual.com/v2/nearest_city?key=a2155ddb-4b9a-412b-96b9-8f0c7bfe3927');
+        'https://api.openweathermap.org/data/2.5/weather?lat=36.76441&lon=127.28148&appid=9386956589e57780f52c325bb9166071');
 
-    AirResult result = AirResult.fromJson(json.decode(response.body));
+    Weather_API weather_api = new Weather_API();
 
-    return result;
+    if (response.statusCode == 401) {
+      return null;
+    } else {
+      weather_api = Weather_API.fromJson(json.decode(response.body));
+    }
+
+    return weather_api;
   }
 
   @override
   void dispose() {
-    // 화면에서 벗어날 때 카메라 제어기를 위해 OS에게 할당 받은 리소스를 정리 합니다.
-
     super.dispose();
   }
 
@@ -132,13 +138,10 @@ class _MainPageState extends State<MainPage> {
                                   heightR,
                               child: Column(
                                 children: [
-                                  Text("현재 기온 " + Temp().temp.toString() + "℃"),
-                                  TimerBuilder.periodic(
-                                      const Duration(seconds: 1),
-                                      builder: (context) {
-                                    return Text(formatDate(DateTime.now(),
-                                        [hh, ':', nn, ':', ss, ' ', am]));
-                                  }),
+                                  Text("현재 기온 " +
+                                      Temp().temp.toStringAsFixed(1) +
+                                      "℃"),
+
                                 ],
                               ),
                             ),
@@ -316,7 +319,7 @@ class _MainPageState extends State<MainPage> {
   Future<void> getMenu(int age, String gender) async {
     Temp temp = new Temp();
     String time = DateTime.now().hour.toString();
-    int sendTemp = temp.temp+100;
+    int sendTemp = (temp.temp + 100).toInt();
     var map = await myApi(age.toString(), gender, sendTemp.toString(), time);
     MenuList m = new MenuList();
     m.list = map;

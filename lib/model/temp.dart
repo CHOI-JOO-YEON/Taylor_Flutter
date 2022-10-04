@@ -1,5 +1,5 @@
 class Temp {
-  int temp;
+  double temp;
   static final Temp _instance = Temp._internal();
 
   factory Temp() {

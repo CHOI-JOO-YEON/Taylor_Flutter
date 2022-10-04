@@ -57,13 +57,8 @@ class _PayPageState extends State<PayPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end  ,
                             children: [
-                              Text("현재 기온 " + Temp().temp.toString() + "℃"),
-                              TimerBuilder.periodic(
-                                  const Duration(seconds: 1),
-                                  builder: (context) {
-                                    return Text(formatDate(DateTime.now(),
-                                        [hh, ':', nn, ':', ss, ' ', am]));
-                                  }),
+                              Text("현재 기온 " + Temp().temp.toStringAsFixed(1) + "℃"),
+
 
                             ],
                           ),

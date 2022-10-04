@@ -70,14 +70,14 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.4"
   date_format:
     dependency: "direct main"
     description:
       name: date_format
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.6"
+    version: "1.0.9"
   fake_async:
     dependency: transitive
     description:
@@ -103,7 +103,7 @@ packages:
       name: flutter_screenutil
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.4+1"
+    version: "5.5.3+2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -198,13 +198,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
-  scroll_to_index:
-    dependency: "direct main"
-    description:
-      name: scroll_to_index
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.6"
   sky_engine:
     dependency: transitive
     description: flutter

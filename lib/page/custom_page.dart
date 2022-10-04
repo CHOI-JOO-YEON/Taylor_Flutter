@@ -248,7 +248,7 @@ class _CustomPageState extends State<CustomPage> {
 
   Future<void> getMenu(int age, String gender, int _temp, int time) async {
     Temp temp = new Temp();
-    temp.temp = _temp;
+    temp.temp = _temp.toDouble();
     var map = await myApi(age.toString(), gender, (_temp+100).toString(), time.toString());
     MenuList m = new MenuList();
     m.list = map;
